@@ -1,0 +1,81 @@
+/* Course page searchbar styles - modern, minimal, responsive */
+
+.course-searchbar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+
+  /* mobile: stack */
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    flex: 1 1 56%;
+    position: relative;
+  }
+
+
+  .course-search-input {
+    width: 100%;
+    padding: 12px 14px; /* no left padding needed (icon removed) */
+    border-radius: 10px;
+    border: 1px solid $border-color;
+    box-shadow: 0 6px 18px rgba(69,64,225,0.06); /* subtle theme-primary shadow */
+    background: $white;
+    transition: box-shadow 0.18s ease, border-color 0.12s ease;
+    font-family: $base-font;
+    color: $text-color;
+
+    &:focus {
+      outline: none;
+      border-color: $theme-primary-color;
+      box-shadow: 0 8px 24px rgba(69,64,225,0.12);
+    }
+  }
+
+  .category-select {
+    flex: 0 0 28%;
+    min-width: 180px;
+  }
+
+  .course-category-select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid $border-color;
+    background: $white;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    font-family: $base-font;
+    color: $text-color;
+    appearance: none;
+  }
+
+  .clear-button {
+    flex: 0 0 110px;
+  }
+
+  .course-clear-btn {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: none;
+    background: $dark-gray;
+    color: $white;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(26,23,41,0.06);
+    transition: transform .08s ease, box-shadow .12s ease, background .12s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      background: darken($dark-gray, 6%);
+    }
+  }
+}

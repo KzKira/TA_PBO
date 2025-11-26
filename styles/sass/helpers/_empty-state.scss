@@ -1,0 +1,20 @@
+/* Empty state styles for category pages */
+.category-empty-state {
+  text-align: center;
+  margin: 48px 0;
+
+  h2 {
+    /* slightly smaller than before for better balance with page headings */
+    font-size: 28px;
+    font-weight: 700;
+    font-family: $heading-font, $base-font;
+    color: $heading-color;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 767px) {
+    margin: 36px 0;
+    h2 { font-size: 20px; }
+  }
+}
