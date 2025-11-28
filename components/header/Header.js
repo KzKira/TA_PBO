@@ -36,6 +36,20 @@ const Header = (props) => {
         }
     }
 
+    const toggleDebugHeader = () => {
+        try {
+            document.body.classList.toggle('debug-show-header-right')
+            const visible = document.body.classList.contains('debug-show-header-right')
+            // helpful console message for testing
+            // eslint-disable-next-line no-console
+            console.log('Debug: header-right visibility toggled ->', visible)
+            alert('Debug: header-right visibility toggled -> ' + (visible ? 'VISIBLE' : 'HIDDEN'))
+        } catch (e) {
+            // eslint-disable-next-line no-console
+            console.error('Debug toggle failed', e)
+        }
+    }
+
     return (
         <header id="header">
             <HeaderTopbar topbarClass={props.topbarClass}/>
@@ -48,6 +62,28 @@ const Header = (props) => {
                                 <div className="navbar-header">
                                     <Link onClick={ClickHandler} className="navbar-brand" href="/home"><Image src={Logo}
                                         alt="logo" /></Link>
+                                    {/* Mobile-only sign in / profile (mirrors desktop header-right) */}
+                                    <div className="mobile-header-right" aria-hidden={false}>
+                                        <div className="close-form">
+                                            {user ? (
+                                                <Link onClick={ClickHandler} className="theme-btn" href="/profile"><span className="text">Profile</span>
+                                                    <span className="mobile">
+                                                        <i className="fi flaticon-charity"></i>
+                                                    </span></Link>
+                                            ) : (
+                                                <>
+                                                    <Link onClick={ClickHandler} className="login" href="/login"><span className="text">Sign In</span>
+                                                        <span className="mobile">
+                                                            <i className="fi flaticon-charity"></i>
+                                                        </span></Link>
+                                                    <Link onClick={ClickHandler} className="theme-btn" href="/register"><span className="text">Sign Up</span>
+                                                        <span className="mobile">
+                                                            <i className="fi flaticon-charity"></i>
+                                                        </span></Link>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-1 col-1">
