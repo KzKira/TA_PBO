@@ -10,6 +10,7 @@ import ChooseSection from '../../components/ChooseSection/ChooseSection';
 import Newslatter from '../../components/Newslatter/Newslatter';
 import Footer from '../../components/footer/Footer';
 import Scrollbar from '../../components/scrollbar/scrollbar';
+import Chatbot from '../../components/Chatbot';
 
 const HomePage =({ courses = [] }) => {
     return(
@@ -24,6 +25,7 @@ const HomePage =({ courses = [] }) => {
             <Newslatter/>
             <Footer/>  
             <Scrollbar/>
+            <Chatbot/>
         </Fragment>
     )
 };

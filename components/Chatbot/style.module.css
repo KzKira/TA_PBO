@@ -1,0 +1,109 @@
+.chatWidget {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  font-family: 'Muli', sans-serif; /* Menggunakan font dari project Anda */
+}
+
+.toggleButton {
+  background-color: #f26522; /* Warna oranye sesuai tema project Anda */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: transform 0.3s;
+}
+
+.toggleButton:hover {
+  transform: scale(1.1);
+}
+
+.chatWindow {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 350px;
+  height: 450px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.header {
+  background-color: #f26522;
+  color: white;
+  padding: 15px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  max-width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.userMessage {
+  background-color: #e3effd;
+  color: #333;
+  align-self: flex-end;
+  border-bottom-right-radius: 2px;
+}
+
+.aiMessage {
+  background-color: white;
+  border: 1px solid #eee;
+  color: #333;
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+}
+
+.inputArea {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  background: white;
+}
+
+.input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 10px 15px;
+  outline: none;
+}
+
+.sendButton {
+  background: none;
+  border: none;
+  color: #f26522;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+}
