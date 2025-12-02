@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { supabase } from '../lib/supabaseClient'
+import authService from '../lib/AuthService'
 
 export const AuthContext = createContext({})
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children, service = authService }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -11,13 +11,13 @@ export const AuthProvider = ({ children }) => {
     let mounted = true
 
     // initial session
-    supabase.auth.getSession().then(({ data }) => {
+    service.getSession().then(({ data }) => {
       if (!mounted) return
       setUser(data.session?.user ?? null)
       setLoading(false)
     })
 
-    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: listener } = service.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null)
     })
 
@@ -32,20 +32,20 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
-  const signUp = async ({ email, password }) => {
-    const { data, error } = await supabase.auth.signUp({ email, password })
-    return { data, error }
+  const signUp = async ({ email, password, metadata } = {}) => {
+    const result = await service.signUp({ email, password, metadata })
+    return result
   }
 
-  const signIn = async ({ email, password }) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    return { data, error }
+  const signIn = async ({ email, password } = {}) => {
+    const result = await service.signIn({ email, password })
+    return result
   }
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut()
-    if (!error) setUser(null)
-    return { error }
+    const result = await service.signOut()
+    if (!result.error) setUser(null)
+    return result
   }
 
   return (

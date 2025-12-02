@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Grid from "@mui/material/Grid";
 import SimpleReactValidator from "simple-react-validator";
 import {toast} from "react-toastify";
@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useRouter } from 'next/router'
 import Link from "next/link";
-import { supabase } from '../../lib/supabaseClient'
+import { AuthContext } from '../../context/AuthContext'
 
 const SignUpPage = (props) => {
 
@@ -28,6 +28,8 @@ const SignUpPage = (props) => {
         className: 'errorMessage'
     }));
 
+    const { signUp } = useContext(AuthContext)
+
 
     const submitForm = async (e) => {
         e.preventDefault();
@@ -38,27 +40,24 @@ const SignUpPage = (props) => {
         }
 
         try {
-            // Use Supabase native user metadata to populate the Auth "Display Name"
-            const { data, error } = await supabase.auth.signUp({
-                email: value.email,
-                password: value.password,
-                options: {
-                    data: {
+            // Use AuthContext which delegates to AuthService (OOP)
+            const { data, error } = await signUp({
+                    email: value.email,
+                    password: value.password,
+                    metadata: {
                         full_name: value.full_name,
                         display_name: value.full_name
                     }
+                })
+                if (error) {
+                    // log full error for debugging
+                    // eslint-disable-next-line no-console
+                    console.error('signup error', error)
+                    const msg = error.message || 'Registration failed'
+                    const det = error.details ? `: ${error.details}` : ''
+                    toast.error(msg + det)
+                    return
                 }
-            })
-            if (error) {
-                // log full error for debugging
-                // eslint-disable-next-line no-console
-                console.error('signup error', error)
-                // Supabase errors sometimes include `message` and `details`
-                const msg = error.message || 'Registration failed'
-                const det = error.details ? `: ${error.details}` : ''
-                toast.error(msg + det)
-                return
-            }
             setValue({ email: '', full_name: '', password: '', confirm_password: '' })
             validator.hideMessages();
             toast.success('Registration complete!')
